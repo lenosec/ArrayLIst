@@ -1,10 +1,10 @@
 package com.company;
 
-public class Forarray {
+public class Student {
     private int rollno;
     private String name;
 
-    public Forarray( String name, int rollno) {
+    public Student(String name, int rollno) {
         this.rollno = rollno;
         this.name = name;
     }
@@ -20,4 +20,5 @@ public class Forarray {
     public void setName(String name) {
         this.name = name;
     }
+
 }

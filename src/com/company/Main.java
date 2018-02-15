@@ -1,16 +1,16 @@
 package com.company;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.Scanner;
 
 public class Main {
-    public static ArrayList<Forarray> forarrays;
+    public static ArrayList<Student> students;
     private static Scanner scanner = new Scanner(System.in);
 
 
     public static void main(String[] args) {
-        forarrays = new ArrayList<Forarray>();
+        students = new ArrayList<Student>();
         printActions();
         boolean quit = false;
         int action;
@@ -42,8 +42,7 @@ public class Main {
                     String oldname = scanner.nextLine();
                     System.out.println("Please enter the new name\n");
                     String newname = scanner.nextLine();
-                    modifyArray(oldname,newname);
-
+                    modifyArray(oldname, newname);
 
 
             }
@@ -51,52 +50,55 @@ public class Main {
     }
 
     private static void printArray() {
-        for (int i = 0; i < forarrays.size(); i++) {
-            Forarray a = forarrays.get(i);
+        for (int i = 0; i < students.size(); i++) {
+            Student a = students.get(i);
             System.out.println(i + 1 + ".Name " + a.getName() + " Roll no." + a.getRollno());
         }
     }
 
     public static void createarray(String name, int rollno) {
-        if (findArray(name) >= 0 && rollnofind(rollno)!=0) {
+        if (findArray(name) >= 0 && rollnofind(rollno) != 0) {
             System.out.println("Sorry " + name + " already in the list");
         }
-        forarrays.add(new Forarray(name, rollno));
+        students.add(new Student(name, rollno));
         System.out.println("Created student's database .");
 
 
     }
+
     private static int findArray(String name) {
-        for (int i = 0; i < forarrays.size(); i++) {
-            Forarray listedarray = forarrays.get(i);
+        for (int i = 0; i < students.size(); i++) {
+            Student listedarray = students.get(i);
             if (listedarray.getName().equals(name)) {
                 return i;
             }
         }
         return -1;
     }
-    private static int rollnofind(int rollnode){
-        for (int i=0;i<forarrays.size();i++){
+
+    private static int rollnofind(int rollnode) {
+        for (int i = 0; i < students.size(); i++) {
             int rollnofinder = 0;
-            if (rollnofinder == forarrays.get(i).getRollno()){
+            if (rollnofinder == students.get(i).getRollno()) {
                 System.out.println("sorry cannot input same roll no");
                 return 0;
             }
-        } return rollnode;
+        }
+        return rollnode;
     }
-    public static void remoItem(String name){
-       int arryed =  findArray(name);
-       forarrays.remove(arryed);
-    }
-    public static void modifyArray(String name,String newname){
-       int found = findArray(name);
-       for (int i=0;i<forarrays.size();i++){
-           Forarray element = forarrays.get(i);
-           if (element.getRollno()==found){
-               element.setName(newname);
-               forarrays.set(found,element);
-           }
 
+    public static void remoItem(String name) {
+        int arryed = findArray(name);
+        students.remove(arryed);
+    }
+
+    public static void modifyArray(String name, String newname) {
+        ListIterator<Student> liststudent = students.listIterator();
+       if (liststudent.hasNext()){
+           Student next = liststudent.next();
+           if (next.getName().equals(name)){
+               liststudent.set(new Student(newname,next.getRollno()));
+           }
        }
 
     }
@@ -105,12 +107,10 @@ public class Main {
         System.out.println("\n Available Actions:");
         System.out.println("0 - to shutdown\n" +
                 "1 - to print Students\n" +
-                "2 - to add Student\n"+
-                "3 - to remove Contact\n" );
-//                "4 - to remove Contact\n" +
-//                "5 - to query if a contact exist\n" +
-//                "6 - to print a list of available actions\n ");
-//        System.out.println("Please choose your action:- ");
+                "2 - to add Student\n" +
+                "3 - to remove Student\n" +
+                "4 - to modify Student\n");
+
 
     }
 }
